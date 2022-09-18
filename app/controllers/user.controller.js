@@ -8,9 +8,12 @@ exp.allAccess = (req, res) => {
 };
 exp.bestTeacher = async (req, res) => {
   try {
-    let teacher = await Teacher.find().sort({"likes":-1}).limit(1);
-    let data = teacher[0]?teacher[0]:{username:null,likes:null};
-    return res.status(200).json({teacher:{username:data.username, likes:data.likes}});
+    let pipeline = [
+      {$sort:{"likes":-1}},
+      {$limit:1}
+    ]
+    let teacher = await Teacher.aggregate(pipeline);
+    return res.status(200).json({teacher});
   } catch (error) {
     console.log({error});
     return res.status(500).json({error})
