@@ -11,7 +11,7 @@ exp.bestTeacher = async (req, res) => {
     let pipeline = [
       {$sort:{"likes":-1}},
       {$limit:1}
-    ]
+    ];
     let teacher = await Teacher.aggregate(pipeline);
     return res.status(200).json({teacher});
   } catch (error) {
