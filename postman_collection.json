@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "4f73670f-7492-4cde-89d8-4bacffbf3a7a",
+		"name": "school_staff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19748093"
+	},
+	"item": [
+		{
+			"name": "STUDENT API",
+			"item": [
+				{
+					"name": "STUDENT SIGNIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"msd07\",\r\n    \"password\" : \"youaresmart@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTURL}}/api/auth/signin",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "STUDENT REGISTRATION",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"sarpit4545@gmail.com\",\r\n    \"username\" : \"msd07\",\r\n    \"password\" : \"youaresmart@123\",\r\n    \"subject\" : [\"MATH\", \"ENGLISH\",\"SCIENCE\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTURL}}/api/auth/student_signup",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"student_signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "STUDENT TEST API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTURL}}/api/test/student",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"test",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD TEACHER 2 FAV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTURL}}/api/student/like/teacher?teacher=msd08",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"like",
+								"teacher"
+							],
+							"query": [
+								{
+									"key": "teacher",
+									"value": "msd08"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REMOVE TEACHER FROM FAV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTURL}}/api/student/remove/like/teacher?teacher=msd08",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"student",
+								"remove",
+								"like",
+								"teacher"
+							],
+							"query": [
+								{
+									"key": "teacher",
+									"value": "msd08"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TEACHER API",
+			"item": [
+				{
+					"name": "TEACHER registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"sarpit9465@gmail.com\",\r\n    \"username\" : \"msd08\",\r\n    \"password\" : \"youaresmart@123\",\r\n    \"subject\" : \"MATH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTURL}}/api/auth/teacher_signup",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"teacher_signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEACHER SIGNIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"msd08\",\r\n    \"password\" : \"youaresmart@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTURL}}/api/auth/signin",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEACHER TEST API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTURL}}/api/test/teacher",
+							"host": [
+								"{{HOSTURL}}"
+							],
+							"path": [
+								"api",
+								"test",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health_check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json(),\r",
+							"jsonData = JSON.stringify(response);\r",
+							"pm.collectionVariables.set(\"ACCESS_TOKEN\", response.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOSTURL}}/api/bestTeacher",
+					"host": [
+						"{{HOSTURL}}"
+					],
+					"path": [
+						"api",
+						"bestTeacher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET BEST TEACHER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOSTURL}}/api/bestTeacher",
+					"host": [
+						"{{HOSTURL}}"
+					],
+					"path": [
+						"api",
+						"bestTeacher"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOSTURL",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
