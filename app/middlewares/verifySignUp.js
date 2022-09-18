@@ -1,0 +1,84 @@
+const db = require("../models");
+const ROLES = db.ROLES;
+const SUBJECT = db.SUBJECTS;
+const User = db.user;
+
+checkDuplicateUsernameOrEmail = (req, res, next) => {
+  // Username
+  User.findOne({
+    username: req.body.username,
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    if (user) {
+      res.status(400).send({ message: "Failed! Username is already in use!" });
+      return;
+    }
+
+    // Email
+    User.findOne({
+      email: req.body.email,
+    }).exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+
+      if (user) {
+        res.status(400).send({ message: "Failed! Email is already in use!" });
+        return;
+      }
+
+      next();
+    });
+  });
+};
+
+checkRolesExisted = (req, res, next) => {
+  if (req.body.roles) {
+    for (let i = 0; i < req.body.roles.length; i++) {
+      if (!ROLES.includes(req.body.roles[i])) {
+        res.status(400).send({
+          message: `Failed! Role ${req.body.roles[i]} does not exist!`,
+        });
+        return;
+      }
+    }
+  }
+
+  next();
+};
+
+let checkSubjectExisted = (req, res, next) => {
+  let subject = req.body.subject;
+  if (typeof subject === "string") {
+    subject = [subject];
+  }
+  if (subject && typeof subject === "object") {
+    for (let i = 0; i < subject.length; i++) {
+      if (!SUBJECT.includes(subject[i])) {
+        res.status(400).send({
+          message: `Failed! Subject ${subject[i]} does not exist!`,
+        });
+        return;
+      }
+    }
+    next();
+  }else{
+    res.status(400).send({
+      message: `Failed! Subject does not exist!`,
+    });
+    return;
+  }
+};
+
+const verifySignUp = {
+  checkDuplicateUsernameOrEmail,
+  checkRolesExisted,
+  checkSubjectExisted
+};
+
+module.exports = verifySignUp;
